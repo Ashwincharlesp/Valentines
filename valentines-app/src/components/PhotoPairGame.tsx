@@ -89,7 +89,20 @@ export default function PhotoPairGame({
   }, [matched, handleShowProposal]);
 
   return (
-    <div className="grid grid-cols-9 gap-1 lg:gap-2 max-w-[95vw] mx-auto place-items-center">
+    <div className="flex items-center justify-center gap-4 lg:gap-8 max-w-[95vw] mx-auto">
+      {/* GIF left of the heart */}
+      <div className="flex-shrink-0 hidden sm:block">
+        <Image
+          src="/hamster_jumping.gif"
+          alt=""
+          width={120}
+          height={120}
+          unoptimized
+          className="w-24 h-24 lg:w-32 lg:h-32 object-contain"
+        />
+      </div>
+
+      <div className="grid grid-cols-9 gap-1 lg:gap-2 place-items-center">
       {/* Image preload */}
       <div className="hidden">
         {images.map((image, i) => (
@@ -162,6 +175,7 @@ export default function PhotoPairGame({
           <div key={i} className="w-[11vh] h-[11vh] lg:w-20 lg:h-20" />
         ),
       )}
+      </div>
     </div>
   );
 }
