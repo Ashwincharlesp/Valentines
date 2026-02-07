@@ -1,7 +1,7 @@
 "use client";
 
-// Run the app in your browser (no npm needed): https://valentines-proposal-visibait.vercel.app
-// To get your own link: push this repo to GitHub → vercel.com → Import repo → Deploy, then replace the URL above.
+// Run in browser: https://valentines-proposal-visibait.vercel.app (sample)
+// Host on GitHub: push repo → Settings → Pages → Source: GitHub Actions → push to main. Your URL: https://<user>.github.io/<repo>/
 
 import { useState } from "react";
 import { motion } from "framer-motion";

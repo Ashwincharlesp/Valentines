@@ -12,7 +12,18 @@ A romantic and interactive way to ask your special someone to be your Valentine!
 
 👉 **[Open the app (live demo)](https://valentines-proposal-visibait.vercel.app)**
 
-*(The link above is the original sample. To get your own link for this repo: push this folder to GitHub, then go to [vercel.com](https://vercel.com) → Sign in with GitHub → **Add New** → **Project** → Import your repo → **Deploy**. Use the URL Vercel gives you and update it in this README and in the comment at the top of `src/app/page.tsx`.)*
+*(The link above is the original sample.)*
+
+**Host it on GitHub (free):**
+
+1. Push this folder to a GitHub repo (e.g. `Valentines` or `valentines-app`).
+2. In the repo: **Settings → Pages** → under "Build and deployment", set **Source** to **GitHub Actions**.
+3. Push to the `main` branch (or run the workflow from the **Actions** tab). The workflow builds the app and deploys it to GitHub Pages.
+4. Your app will be at: **`https://<your-username>.github.io/<repo-name>/`**  
+   Example: `https://pcharles.github.io/Valentines/`  
+   Put that URL in the link above and in the comment in `src/app/page.tsx` so you can click to open it.
+
+**Alternative:** [Vercel](https://vercel.com) — Sign in with GitHub → Import repo → Deploy (no config needed).
 
 ---
 
