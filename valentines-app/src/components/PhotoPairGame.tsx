@@ -51,13 +51,16 @@ type ValentinesProposalProps = {
   handleShowProposal: () => void;
 };
 
+const getImageSrc = (path: string) =>
+  `${process.env.NEXT_PUBLIC_BASE_PATH || ""}${path}`;
+
 export default function PhotoPairGame({
   handleShowProposal,
 }: ValentinesProposalProps) {
   const [selected, setSelected] = useState<number[]>([]);
   const [matched, setMatched] = useState<number[]>([]);
   const [incorrect, setIncorrect] = useState<number[]>([]);
-  const [images] = useState(() => shuffleArray([...imagePairs]));
+  const [shuffledImages] = useState(() => shuffleArray([...imagePairs]));
 
   const handleClick = async (index: number) => {
     if (selected.length === 2 || matched.includes(index) || selected.includes(index)) return;
@@ -66,14 +69,14 @@ export default function PhotoPairGame({
       const firstIndex = selected[0];
       setSelected((prev) => [...prev, index]);
 
-      if (images[firstIndex] === images[index]) {
+      if (shuffledImages[firstIndex] === shuffledImages[index]) {
         setMatched((prev) => [...prev, firstIndex, index]);
         setSelected([]);
       } else {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait 1 second
+        await new Promise((resolve) => setTimeout(resolve, 1000));
 
         setIncorrect([firstIndex, index]);
-        setTimeout(() => setIncorrect([]), 1000); // Clear incorrect after 1 second
+        setTimeout(() => setIncorrect([]), 1000);
         setTimeout(() => setSelected([]), 1000);
       }
     } else {
@@ -90,25 +93,25 @@ export default function PhotoPairGame({
 
   return (
     <div className="flex items-center justify-center gap-4 lg:gap-8 max-w-[95vw] mx-auto">
-      {/* GIF left of the heart */}
-      <div className="flex-shrink-0 hidden sm:block">
+      {/* GIF left of the heart — always visible on all screen sizes */}
+      <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 relative">
         <Image
-          src="/hamster_jumping.gif"
+          src={getImageSrc("/hamster_jumping.gif")}
           alt=""
-          width={120}
-          height={120}
+          width={128}
+          height={128}
           unoptimized
-          className="w-24 h-24 lg:w-32 lg:h-32 object-contain"
+          className="w-full h-full object-contain"
         />
       </div>
 
       <div className="grid grid-cols-9 gap-1 lg:gap-2 place-items-center">
       {/* Image preload */}
       <div className="hidden">
-        {images.map((image, i) => (
+        {shuffledImages.map((image, i) => (
           <Image
             key={i}
-            src={image}
+            src={getImageSrc(image)}
             alt={`Image ${i + 1}`}
             fill
             className="object-cover"
@@ -145,16 +148,17 @@ export default function PhotoPairGame({
             {/* Front of the card (image) */}
             {(selected.includes(index) || matched.includes(index)) && (
               <motion.div
-                className="w-full h-full absolute"
+                className="absolute inset-0"
                 initial={{ rotateY: -180 }}
                 animate={{ rotateY: 0 }}
                 transition={{ duration: 0.5 }}
                 style={{ backfaceVisibility: "hidden" }}
               >
                 <Image
-                  src={images[index]}
-                  alt={`Imagen ${index + 1}`}
+                  src={getImageSrc(shuffledImages[index])}
+                  alt={`Card ${index + 1}`}
                   fill
+                  sizes="(max-width: 1024px) 11vh, 5rem"
                   className="rounded-sm lg:rounded-md object-cover"
                 />
               </motion.div>
