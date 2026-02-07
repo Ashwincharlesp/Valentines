@@ -10,18 +10,14 @@ A romantic and interactive way to ask your special someone to be your Valentine!
 
 **Click to run the app in your browser:**
 
-👉 **[Open the app (live demo)](https://valentines-proposal-visibait.vercel.app)**
-
-*(The link above is the original sample.)*
+👉 **[Open the app](https://pcharles.github.io/Valentines/)**
 
 **Host it on GitHub (free):**
 
 1. Push this folder to a GitHub repo (e.g. `Valentines` or `valentines-app`).
 2. In the repo: **Settings → Pages** → under "Build and deployment", set **Source** to **GitHub Actions**.
 3. Push to the `main` branch (or run the workflow from the **Actions** tab). The workflow builds the app and deploys it to GitHub Pages.
-4. Your app will be at: **`https://<your-username>.github.io/<repo-name>/`**  
-   Example: `https://pcharles.github.io/Valentines/`  
-   Put that URL in the link above and in the comment in `src/app/page.tsx` so you can click to open it.
+4. Your app is at: **https://pcharles.github.io/Valentines/**
 
 **Alternative:** [Vercel](https://vercel.com) — Sign in with GitHub → Import repo → Deploy (no config needed).
 
@@ -29,7 +25,7 @@ A romantic and interactive way to ask your special someone to be your Valentine!
 
 ## Demo 🎮
 
-You can see the live demo of the game [here](https://valentines-proposal-visibait.vercel.app).
+You can see the live demo of the game [here](https://pcharles.github.io/Valentines/).
 
 ## Features ✨
 
