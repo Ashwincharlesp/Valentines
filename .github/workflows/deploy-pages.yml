@@ -40,7 +40,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: valentines-app/out
 
@@ -53,4 +53,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@4
+        uses: actions/deploy-pages@v4
