@@ -29,7 +29,8 @@ export default function ValentinesProposal() {
     left: string;
   } | null>(null);
   const [showFireworks, setShowFireworks] = useState(false);
-  const [noClickCount, setNoClickCount] = useState(0);
+  const [moveCount, setMoveCount] = useState(0);
+  const [shrinkClickCount, setShrinkClickCount] = useState(0);
 
   const getRandomPosition = () => {
     const randomTop = Math.random() * 80;
@@ -37,22 +38,25 @@ export default function ValentinesProposal() {
     return { top: `${randomTop}%`, left: `${randomLeft}%` };
   };
 
+  const handleNoMove = () => {
+    if (moveCount < 10) {
+      setPosition(getRandomPosition());
+      setMoveCount((m) => m + 1);
+    }
+  };
+
   const handleNoClick = () => {
-    if (noClickCount < 10) {
+    if (moveCount < 10) {
       setPosition(getRandomPosition());
-    }
-    setNoClickCount((c) => c + 1);
-  };
-
-  const handleNoMouseEnter = () => {
-    if (noClickCount < 10) {
-      setPosition(getRandomPosition());
+      setMoveCount((m) => m + 1);
+    } else {
+      setShrinkClickCount((c) => c + 1);
     }
   };
 
-  const shrinkPhase = noClickCount >= 10;
-  const noGone = noClickCount >= 18;
-  const phaseIndex = Math.min(noClickCount - 10, 7);
+  const shrinkPhase = moveCount >= 10;
+  const noGone = shrinkClickCount >= 8;
+  const phaseIndex = Math.min(shrinkClickCount, 7);
   const noScale = shrinkPhase ? Math.max(0.2, 1 - phaseIndex * 0.1) : 1;
   const yesScale = shrinkPhase ? 1 + phaseIndex * 0.1 : 1;
   const noButtonText = shrinkPhase ? NO_BUTTON_TEXTS[phaseIndex] : "No, I won't 😢";
@@ -137,7 +141,7 @@ export default function ValentinesProposal() {
                     transform: `scale(${noScale})`,
                   }}
                   transition={{ type: "tween", duration: 0.25 }}
-                  onMouseEnter={handleNoMouseEnter}
+                  onMouseEnter={handleNoMove}
                   onClick={handleNoClick}
                 >
                   {noButtonText}
