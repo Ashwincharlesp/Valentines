@@ -4,26 +4,26 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-// 18 images
+// 18 images — your Pic 1–18 files (mixed .jpg / .jpeg / .png)
 const images = [
-  "/game-photos/1.avif",
-  "/game-photos/2.avif",
-  "/game-photos/3.avif",
-  "/game-photos/4.avif",
-  "/game-photos/5.avif",
-  "/game-photos/6.avif",
-  "/game-photos/7.avif",
-  "/game-photos/8.avif",
-  "/game-photos/9.avif",
-  "/game-photos/10.avif",
-  "/game-photos/11.avif",
-  "/game-photos/12.avif",
-  "/game-photos/13.avif",
-  "/game-photos/14.avif",
-  "/game-photos/15.avif",
-  "/game-photos/16.avif",
-  "/game-photos/17.avif",
-  "/game-photos/18.avif",
+  "/game-photos/Pic 1.jpg",
+  "/game-photos/Pic 2.png",
+  "/game-photos/Pic 3.jpeg",
+  "/game-photos/Pic 4.jpeg",
+  "/game-photos/Pic 5.jpeg",
+  "/game-photos/Pic 6.jpeg",
+  "/game-photos/Pic 7.jpeg",
+  "/game-photos/Pic 8.png",
+  "/game-photos/Pic 9.png",
+  "/game-photos/Pic 10.png",
+  "/game-photos/Pic 11.png",
+  "/game-photos/Pic 12.png",
+  "/game-photos/Pic 13.png",
+  "/game-photos/Pic 14.png",
+  "/game-photos/Pic 15.png",
+  "/game-photos/Pic 16.png",
+  "/game-photos/Pic 17.png",
+  "/game-photos/Pic 18.png",
 ];
 
 // Create 18 pairs of images (36 images in total)
