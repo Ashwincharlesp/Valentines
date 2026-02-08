@@ -34,8 +34,8 @@ You can see the live demo of the game [here](https://pcharles.github.io/Valentin
 - Customizable with your own photos
 - Romantic proposal screen with:
   - Fireworks animation on acceptance
-  - Deflection animation: arrow deflects away from the "No" button to the corner when you get close
-  - Cute hamster GIFs and images
+  - Playful "No" button that moves away when you try to click it
+  - Custom GIFs and images
 - Elegant design with Playfair Display font
 - Fully responsive layout
 - Built with Next.js and Tailwind CSS
@@ -50,8 +50,8 @@ You can see the live demo of the game [here](https://pcharles.github.io/Valentin
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/visibait/valentines.git
-cd valentines
+git clone https://github.com/your-username/Valentines.git
+cd Valentines/valentines-app
 ```
 
 2. Install dependencies:
@@ -63,8 +63,7 @@ yarn install
 
 3. Replace the photos:
    - Navigate to the `public/game-photos` directory
-   - Replace the existing images (1.avif through 36.avif) with your own photos
-   - Make sure to keep the same naming convention
+   - Add your photos as Pic 1, Pic 2, … Pic 18 (see PhotoPairGame.tsx for exact filenames; .jpg, .jpeg, .png all work)
    - Use photos of you and your partner together!
 
 4. Start the development server:
@@ -80,9 +79,8 @@ yarn dev
 
 ### Changing Photos
 - Add your photos to `public/game-photos/`
-- Name them from 1.avif to 36.avif
+- Name them Pic 1 through Pic 18 (see the `images` array in `PhotoPairGame.tsx` for extensions)
 - For best results, use square images of the same size
-- Convert your images to .avif format for better performance
 
 ### Modifying Text
 - Edit proposal messages in `components/ValentinesProposal.tsx`
@@ -118,14 +116,7 @@ This project is licensed under the MIT License.
 ## Acknowledgments 🙏
 
 - Inspired by love and creativity
-- Built with Next.js 15 App Router
-
-## Author ✍️
-
-visibait - [https://visibait.com]
-
-## Donate
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/visibait)
+- Built with Next.js App Router
 
 ---
 

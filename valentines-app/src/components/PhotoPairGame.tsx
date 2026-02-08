@@ -96,7 +96,7 @@ export default function PhotoPairGame({
       {/* GIF left of the heart — always visible on all screen sizes */}
       <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 relative">
         <Image
-          src={getImageSrc("/hamster_jumping.gif")}
+          src={getImageSrc("/game-photos/HereHere.gif")}
           alt=""
           width={128}
           height={128}
