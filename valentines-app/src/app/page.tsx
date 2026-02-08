@@ -72,7 +72,7 @@ export default function Home() {
                 className="flex flex-col items-center"
               >
                 <PhotoPairGame handleShowProposal={handleShowProposal} />
-                <div className="mt-4 md:mt-0">
+                <div className="mt-10 md:mt-14">
                   <TextFooter />
                 </div>
                 {/* Invisible skip: bottom-right, black on black — remove or lock later */}

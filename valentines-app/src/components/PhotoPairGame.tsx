@@ -93,8 +93,8 @@ export default function PhotoPairGame({
 
   return (
     <div className="flex items-center justify-center gap-4 lg:gap-8 max-w-[95vw] mx-auto">
-      {/* Inverted GIF left of the heart */}
-      <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 relative [filter:invert(1)]">
+      {/* Mirrored GIF left of the heart */}
+      <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 relative scale-x-[-1]">
         <Image
           src={getImageSrc("/game-photos/HereHere.gif")}
           alt=""
