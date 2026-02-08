@@ -75,6 +75,13 @@ export default function Home() {
                 <div className="mt-4 md:mt-0">
                   <TextFooter />
                 </div>
+                {/* Invisible skip: bottom-right, black on black — remove or lock later */}
+                <button
+                  type="button"
+                  aria-label="Skip to proposal"
+                  className="fixed bottom-4 right-4 w-14 h-14 bg-black border-0 cursor-pointer z-10"
+                  onClick={handleShowProposal}
+                />
               </motion.div>
             )}
           </>
