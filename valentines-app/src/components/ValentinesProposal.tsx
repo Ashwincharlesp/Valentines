@@ -11,6 +11,17 @@ const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
 });
 
+const NO_BUTTON_TEXTS = [
+  "No",
+  "Are you sure?",
+  "Are you very sure?",
+  "Don't you like me?",
+  "Please?",
+  "Pretty please?",
+  "Say yes 😢",
+  "I'll be so sad...",
+];
+
 export default function ValentinesProposal() {
   const [step, setStep] = useState(0);
   const [position, setPosition] = useState<{
@@ -18,12 +29,33 @@ export default function ValentinesProposal() {
     left: string;
   } | null>(null);
   const [showFireworks, setShowFireworks] = useState(false);
+  const [noClickCount, setNoClickCount] = useState(0);
 
   const getRandomPosition = () => {
     const randomTop = Math.random() * 80;
     const randomLeft = Math.random() * 80;
     return { top: `${randomTop}%`, left: `${randomLeft}%` };
   };
+
+  const handleNoClick = () => {
+    if (noClickCount < 10) {
+      setPosition(getRandomPosition());
+    }
+    setNoClickCount((c) => c + 1);
+  };
+
+  const handleNoMouseEnter = () => {
+    if (noClickCount < 10) {
+      setPosition(getRandomPosition());
+    }
+  };
+
+  const shrinkPhase = noClickCount >= 10;
+  const noGone = noClickCount >= 18;
+  const phaseIndex = Math.min(noClickCount - 10, 7);
+  const noScale = shrinkPhase ? Math.max(0.2, 1 - phaseIndex * 0.1) : 1;
+  const yesScale = shrinkPhase ? 1 + phaseIndex * 0.1 : 1;
+  const noButtonText = shrinkPhase ? NO_BUTTON_TEXTS[phaseIndex] : "No, I won't 😢";
 
   useEffect(() => {
     if (step < 2) {
@@ -86,29 +118,31 @@ export default function ValentinesProposal() {
               width={200}
               height={200}
             />
-            <div className="flex space-x-4 mt-10">
-              <button
-                className="px-6 py-2 text-lg font-semibold text-white bg-gradient-to-r from-pink-500 to-rose-500 rounded-xl hover:from-pink-600 hover:to-rose-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+            <div className="flex items-center justify-center gap-4 mt-10 flex-wrap">
+              <motion.button
+                className="px-6 py-2 text-lg font-semibold text-white bg-gradient-to-r from-pink-500 to-rose-500 rounded-xl hover:from-pink-600 hover:to-rose-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+                style={{ transform: `scale(${yesScale})` }}
+                transition={{ type: "tween", duration: 0.25 }}
                 onClick={handleYesClick}
               >
                 Yes, I will! 🥰
-              </button>
-              <button
-                className="px-6 py-2 text-lg font-semibold text-white bg-gradient-to-r from-gray-500 to-gray-600 rounded-xl hover:from-gray-600 hover:to-gray-700 transform hover:scale-95 transition-all duration-300 shadow-lg"
-                style={
-                  position
-                    ? {
-                        position: "absolute",
-                        top: position.top,
-                        left: position.left,
-                      }
-                    : {}
-                }
-                onMouseEnter={() => setPosition(getRandomPosition())}
-                onClick={() => setPosition(getRandomPosition())}
-              >
-                No, I won&apos;t 😢
-              </button>
+              </motion.button>
+              {!noGone && (
+                <motion.button
+                  className="px-6 py-2 text-lg font-semibold text-white bg-gradient-to-r from-gray-500 to-gray-600 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 shadow-lg shrink-0"
+                  style={{
+                    ...(!shrinkPhase && position
+                      ? { position: "absolute" as const, top: position.top, left: position.left }
+                      : {}),
+                    transform: `scale(${noScale})`,
+                  }}
+                  transition={{ type: "tween", duration: 0.25 }}
+                  onMouseEnter={handleNoMouseEnter}
+                  onClick={handleNoClick}
+                >
+                  {noButtonText}
+                </motion.button>
+              )}
             </div>
           </motion.div>
         )}
