@@ -234,7 +234,7 @@ export default function ValentinesProposal() {
         {step === 3 && (
           <motion.div
             key="step-3"
-            className="relative z-10 flex flex-col justify-center items-center text-center"
+            className="fixed inset-0 z-[100] flex flex-col justify-center items-center text-center bg-black/40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -243,28 +243,29 @@ export default function ValentinesProposal() {
             <Image
               src={getImageSrc("/game-photos/Arrow.gif")}
               alt=""
-              width={320}
-              height={320}
+              width={360}
+              height={360}
               unoptimized
-              className="object-contain max-w-[80vw] mb-6"
+              className="object-contain max-w-[85vw] mb-6 drop-shadow-2xl"
             />
-            <p className={`text-4xl font-semibold mb-2 text-white ${playfairDisplay.className}`}>
+            <p className={`text-4xl font-semibold mb-2 text-white drop-shadow-md ${playfairDisplay.className}`}>
               Thank you for accepting, I love you! 💕
             </p>
-            <p className="text-sm text-white/90 mb-4">For more information, write me!!! 💌</p>
+            <p className="text-sm text-white/95 mb-4 drop-shadow-md">For more information, write me!!! 💌</p>
             <Image
               src={getImageSrc("/game-photos/HereHere.gif")}
               alt=""
               width={180}
               height={180}
               unoptimized
+              className="drop-shadow-lg"
             />
           </motion.div>
         )}
       </AnimatePresence>
 
       {showFireworks && (
-        <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
+        <div className="absolute inset-0 w-full h-full pointer-events-none z-[1]">
           <Fireworks
             options={{ autoresize: true }}
             style={{
