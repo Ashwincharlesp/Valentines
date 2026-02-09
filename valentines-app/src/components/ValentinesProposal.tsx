@@ -230,42 +230,14 @@ export default function ValentinesProposal() {
           </motion.div>
         )}
 
-        {/* Step 3: Arrow gif above + thank you, with fireworks behind */}
-        {step === 3 && (
-          <motion.div
-            key="step-3"
-            className="fixed inset-0 z-[100] flex flex-col justify-center items-center text-center bg-black/40"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <Image
-              src={getImageSrc("/game-photos/Arrow.gif")}
-              alt=""
-              width={360}
-              height={360}
-              unoptimized
-              className="object-contain max-w-[85vw] mb-6 drop-shadow-2xl"
-            />
-            <p className={`text-4xl font-semibold mb-2 text-white drop-shadow-md ${playfairDisplay.className}`}>
-              Thank you for accepting, I love you! 💕
-            </p>
-            <p className="text-sm text-white/95 mb-4 drop-shadow-md">For more information, write me!!! 💌</p>
-            <Image
-              src={getImageSrc("/game-photos/HereHere.gif")}
-              alt=""
-              width={180}
-              height={180}
-              unoptimized
-              className="drop-shadow-lg"
-            />
-          </motion.div>
-        )}
       </AnimatePresence>
 
-      {showFireworks && (
-        <div className="absolute inset-0 w-full h-full pointer-events-none z-[1]">
+      {/* Fireworks only on step 3, behind the overlay */}
+      {step === 3 && showFireworks && (
+        <div
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          style={{ zIndex: 1 }}
+        >
           <Fireworks
             options={{ autoresize: true }}
             style={{
@@ -277,6 +249,39 @@ export default function ValentinesProposal() {
             }}
           />
         </div>
+      )}
+
+      {/* Step 3 overlay: must render AFTER fireworks in DOM so it paints on top */}
+      {step === 3 && (
+        <motion.div
+          key="step-3-overlay"
+          className="absolute inset-0 flex flex-col justify-center items-center text-center bg-black/50"
+          style={{ zIndex: 100 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={getImageSrc("/game-photos/Arrow.gif")}
+            alt=""
+            width={360}
+            height={360}
+            className="object-contain max-w-[85vw] w-[360px] h-[360px] mb-6 drop-shadow-2xl"
+          />
+          <p className={`text-4xl font-semibold mb-2 text-white drop-shadow-md ${playfairDisplay.className}`}>
+            Thank you for accepting, I love you! 💕
+          </p>
+          <p className="text-sm text-white mb-4 drop-shadow-md">For more information, write me!!! 💌</p>
+          <Image
+            src={getImageSrc("/game-photos/HereHere.gif")}
+            alt=""
+            width={180}
+            height={180}
+            unoptimized
+            className="drop-shadow-lg"
+          />
+        </motion.div>
       )}
     </div>
   );
