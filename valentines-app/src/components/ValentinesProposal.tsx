@@ -54,6 +54,12 @@ export default function ValentinesProposal() {
     }
   };
 
+  useEffect(() => {
+    if (moveCount === 10) {
+      setPosition(null);
+    }
+  }, [moveCount]);
+
   const shrinkPhase = moveCount >= 10;
   const noGone = shrinkClickCount >= 8;
   const phaseIndex = Math.min(shrinkClickCount, 7);
@@ -133,6 +139,7 @@ export default function ValentinesProposal() {
               </motion.button>
               {!noGone && (
                 <motion.button
+                  layout
                   className="px-6 py-2 text-lg font-semibold text-white bg-gradient-to-r from-gray-500 to-gray-600 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 shadow-lg shrink-0"
                   style={{
                     ...(!shrinkPhase && position
@@ -140,7 +147,11 @@ export default function ValentinesProposal() {
                       : {}),
                     transform: `scale(${noScale})`,
                   }}
-                  transition={{ type: "tween", duration: 0.25 }}
+                  transition={{
+                    type: "tween",
+                    duration: shrinkPhase ? 0.5 : 0.25,
+                    layout: { duration: 0.5, ease: [0.32, 0.72, 0, 1] },
+                  }}
                   onMouseEnter={handleNoMove}
                   onClick={handleNoClick}
                 >
