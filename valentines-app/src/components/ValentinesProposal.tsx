@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { Playfair_Display } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
-import Fireworks from "@fireworks-js/react";
 import Image from "next/image";
 
 const playfairDisplay = Playfair_Display({
@@ -31,7 +30,6 @@ export default function ValentinesProposal() {
     top: string;
     left: string;
   } | null>(null);
-  const [showFireworks, setShowFireworks] = useState(false);
   const [moveCount, setMoveCount] = useState(0);
   const [shrinkClickCount, setShrinkClickCount] = useState(0);
 
@@ -83,10 +81,7 @@ export default function ValentinesProposal() {
 
   useEffect(() => {
     if (step === 2) {
-      const t = setTimeout(() => {
-        setShowFireworks(true);
-        setStep(3);
-      }, 3500);
+      const t = setTimeout(() => setStep(3), 3500);
       return () => clearTimeout(t);
     }
   }, [step]);
@@ -232,39 +227,11 @@ export default function ValentinesProposal() {
 
       </AnimatePresence>
 
-      {/* Fireworks only on step 3, behind the overlay — blown up, 75% opacity */}
-      {step === 3 && showFireworks && (
-        <div
-          className="absolute inset-0 w-full h-full pointer-events-none"
-          style={{ zIndex: 1, opacity: 0.75 }}
-        >
-          <div
-            className="w-full h-full origin-center"
-            style={{
-              transform: "scale(1.8)",
-              width: "100%",
-              height: "100%",
-            }}
-          >
-            <Fireworks
-              options={{ autoresize: true }}
-              style={{
-                width: "100%",
-                height: "100%",
-                position: "absolute",
-                top: 0,
-                left: 0,
-              }}
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Step 3 final screen: only fireworks (full) + Arrow gif (centre), no text or other gifs */}
+      {/* Step 3 final screen: Arrow gif only, no fireworks */}
       {step === 3 && (
         <motion.div
           key="step-3-overlay"
-          className="absolute inset-0 pointer-events-none flex items-center justify-center"
+          className="absolute inset-0 pointer-events-none flex items-center justify-center bg-black"
           style={{ zIndex: 100 }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -274,9 +241,9 @@ export default function ValentinesProposal() {
           <img
             src={getImageSrc("/game-photos/Arrow.gif")}
             alt=""
-            width={160}
-            height={160}
-            className="absolute left-1/2 top-1/2 w-40 h-40 md:w-48 md:h-48 -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-2xl"
+            width={480}
+            height={480}
+            className="absolute left-1/2 top-1/2 w-[min(85vw,480px)] h-[min(85vw,480px)] max-w-[480px] max-h-[80vh] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-2xl"
           />
         </motion.div>
       )}
