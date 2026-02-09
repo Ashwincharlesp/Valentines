@@ -251,11 +251,11 @@ export default function ValentinesProposal() {
         </div>
       )}
 
-      {/* Step 3 overlay: must render AFTER fireworks in DOM so it paints on top */}
+      {/* Step 3: Arrow gif small, dead centre, on top of full-screen fireworks */}
       {step === 3 && (
         <motion.div
           key="step-3-overlay"
-          className="absolute inset-0 flex flex-col justify-center items-center text-center bg-black/50"
+          className="absolute inset-0 pointer-events-none flex items-center justify-center"
           style={{ zIndex: 100 }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -265,21 +265,9 @@ export default function ValentinesProposal() {
           <img
             src={getImageSrc("/game-photos/Arrow.gif")}
             alt=""
-            width={360}
-            height={360}
-            className="object-contain max-w-[85vw] w-[360px] h-[360px] mb-6 drop-shadow-2xl"
-          />
-          <p className={`text-4xl font-semibold mb-2 text-white drop-shadow-md ${playfairDisplay.className}`}>
-            Thank you for accepting, I love you! 💕
-          </p>
-          <p className="text-sm text-white mb-4 drop-shadow-md">For more information, write me!!! 💌</p>
-          <Image
-            src={getImageSrc("/game-photos/HereHere.gif")}
-            alt=""
-            width={180}
-            height={180}
-            unoptimized
-            className="drop-shadow-lg"
+            width={160}
+            height={160}
+            className="absolute left-1/2 top-1/2 w-40 h-40 md:w-48 md:h-48 -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-2xl"
           />
         </motion.div>
       )}
