@@ -232,22 +232,31 @@ export default function ValentinesProposal() {
 
       </AnimatePresence>
 
-      {/* Fireworks only on step 3, behind the overlay */}
+      {/* Fireworks only on step 3, behind the overlay — blown up, 75% opacity */}
       {step === 3 && showFireworks && (
         <div
           className="absolute inset-0 w-full h-full pointer-events-none"
-          style={{ zIndex: 1 }}
+          style={{ zIndex: 1, opacity: 0.75 }}
         >
-          <Fireworks
-            options={{ autoresize: true }}
+          <div
+            className="w-full h-full origin-center"
             style={{
+              transform: "scale(1.8)",
               width: "100%",
               height: "100%",
-              position: "absolute",
-              top: 0,
-              left: 0,
             }}
-          />
+          >
+            <Fireworks
+              options={{ autoresize: true }}
+              style={{
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+                top: 0,
+                left: 0,
+              }}
+            />
+          </div>
         </div>
       )}
 
