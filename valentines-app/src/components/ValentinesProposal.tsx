@@ -12,7 +12,7 @@ const playfairDisplay = Playfair_Display({
 });
 
 const NO_BUTTON_TEXTS = [
-  "No",
+  "No, I won't 😢",
   "Are you sure?",
   "Are you very sure?",
   "Don't you like me?",
@@ -21,6 +21,9 @@ const NO_BUTTON_TEXTS = [
   "Say yes 😢",
   "I'll be so sad...",
 ];
+
+const getImageSrc = (path: string) =>
+  `${process.env.NEXT_PUBLIC_BASE_PATH || ""}${path}`;
 
 export default function ValentinesProposal() {
   const [step, setStep] = useState(0);
@@ -63,55 +66,74 @@ export default function ValentinesProposal() {
   const shrinkPhase = moveCount >= 10;
   const noGone = shrinkClickCount >= 8;
   const phaseIndex = Math.min(shrinkClickCount, 7);
-  const noScale = shrinkPhase ? Math.max(0.2, 1 - phaseIndex * 0.1) : 1;
-  const yesScale = shrinkPhase ? 1 + phaseIndex * 0.1 : 1;
+  const noScale = shrinkPhase ? Math.max(0.25, 1 - phaseIndex * 0.1) : 1;
+  const yesScale = shrinkPhase ? 1 + phaseIndex * 0.08 : 1;
   const noButtonText = shrinkPhase ? NO_BUTTON_TEXTS[phaseIndex] : "No, I won't 😢";
 
   useEffect(() => {
-    if (step < 2) {
-      const timer = setTimeout(() => {
-        setStep((prevStep) => prevStep + 1);
-      }, 5000);
+    if (step === 0) {
+      const timer = setTimeout(() => setStep(1), 3500);
       return () => clearTimeout(timer);
     }
   }, [step]);
 
   const handleYesClick = () => {
-    setShowFireworks(true);
-    setStep(3);
+    setStep(2);
   };
+
+  useEffect(() => {
+    if (step === 2) {
+      const t = setTimeout(() => {
+        setShowFireworks(true);
+        setStep(3);
+      }, 3500);
+      return () => clearTimeout(t);
+    }
+  }, [step]);
 
   return (
     <div className="flex flex-col items-center justify-center h-full">
       <AnimatePresence mode="wait">
+        {/* Step 0: yay gif + Good Panda! + A+ */}
         {step === 0 && (
-          <motion.h2
-            key="step-0"
-            className={`text-4xl font-semibold mb-4 ${playfairDisplay.className}`}
-            transition={{ duration: 1 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            Congratulations! You have completed the game.
-          </motion.h2>
-        )}
-        {step === 1 && (
-          <motion.h2
-            key="step-1"
-            className={`text-4xl font-semibold mb-4 ${playfairDisplay.className}`}
-            transition={{ duration: 3 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            I have a surprise for you!
-          </motion.h2>
-        )}
-        {step === 2 && (
           <motion.div
-            key="step-2"
-            transition={{ duration: 3 }}
+            key="step-0"
+            className="flex flex-col items-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Image
+              src={getImageSrc("/game-photos/yay.gif")}
+              alt=""
+              width={280}
+              height={280}
+              unoptimized
+              className="object-contain"
+            />
+            <div className="relative mt-4 inline-block">
+              <span
+                className={`text-4xl font-bold text-white ${playfairDisplay.className}`}
+              >
+                Good Panda !
+              </span>
+              <Image
+                src={getImageSrc("/game-photos/A+.png")}
+                alt="A+"
+                width={48}
+                height={48}
+                className="absolute -top-2 -right-10 w-10 h-10 object-contain"
+              />
+            </div>
+          </motion.div>
+        )}
+
+        {/* Step 1: Will you be my Valentine */}
+        {step === 1 && (
+          <motion.div
+            key="step-1"
+            transition={{ duration: 0.6 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -124,13 +146,13 @@ export default function ValentinesProposal() {
             </h2>
             <Image
               src="/sad_hamster.png"
-              alt="Sad Hamster"
+              alt=""
               width={200}
               height={200}
             />
-            <div className="flex items-center justify-center gap-4 mt-10 flex-wrap">
+            <div className="flex items-center justify-center gap-6 mt-10 flex-wrap">
               <motion.button
-                className="px-6 py-2 text-lg font-semibold text-white bg-gradient-to-r from-pink-500 to-rose-500 rounded-xl hover:from-pink-600 hover:to-rose-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="px-6 py-2 text-lg font-semibold text-white bg-gradient-to-r from-pink-500 to-rose-500 rounded-xl hover:from-pink-600 hover:to-rose-600 transition-all duration-300 shadow-lg hover:shadow-xl shrink-0 origin-center"
                 style={{ transform: `scale(${yesScale})` }}
                 transition={{ type: "tween", duration: 0.25 }}
                 onClick={handleYesClick}
@@ -140,7 +162,7 @@ export default function ValentinesProposal() {
               {!noGone && (
                 <motion.button
                   layout
-                  className="px-6 py-2 text-lg font-semibold text-white bg-gradient-to-r from-gray-500 to-gray-600 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 shadow-lg shrink-0"
+                  className="px-6 py-2 text-lg font-semibold text-white bg-gradient-to-r from-gray-500 to-gray-600 rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 shadow-lg shrink-0 origin-center"
                   style={{
                     ...(!shrinkPhase && position
                       ? { position: "absolute" as const, top: position.top, left: position.left }
@@ -161,20 +183,43 @@ export default function ValentinesProposal() {
             </div>
           </motion.div>
         )}
+
+        {/* Step 2: Big Arrow gif in center (after Yes click) */}
+        {step === 2 && (
+          <motion.div
+            key="step-2"
+            className="flex flex-col items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Image
+              src={getImageSrc("/game-photos/Arrow.gif")}
+              alt=""
+              width={400}
+              height={400}
+              unoptimized
+              className="object-contain max-w-[85vw] max-h-[70vh]"
+            />
+          </motion.div>
+        )}
+
+        {/* Step 3: Thank you + fireworks */}
         {step === 3 && (
           <motion.div
             key="step-3"
             className={`text-4xl font-semibold mb-4 flex flex-col justify-center items-center ${playfairDisplay.className}`}
-            transition={{ duration: 1 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
           >
             Thank you for accepting, I love you! 💕
             <p className="text-sm mt-4">For more information, write me!!! 💌</p>
             <Image
-              src="/game-photos/HereHere.gif"
-              alt="Hamster Feliz"
+              src={getImageSrc("/game-photos/HereHere.gif")}
+              alt=""
               width={200}
               height={200}
               unoptimized
@@ -184,11 +229,9 @@ export default function ValentinesProposal() {
       </AnimatePresence>
 
       {showFireworks && (
-        <div className="absolute w-full h-full">
+        <div className="absolute w-full h-full pointer-events-none">
           <Fireworks
-            options={{
-              autoresize: true,
-            }}
+            options={{ autoresize: true }}
             style={{
               width: "100%",
               height: "100%",
