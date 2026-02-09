@@ -66,8 +66,8 @@ export default function ValentinesProposal() {
   const shrinkPhase = moveCount >= 10;
   const noGone = shrinkClickCount >= 8;
   const phaseIndex = Math.min(shrinkClickCount, 7);
-  const noScale = shrinkPhase ? Math.max(0.25, 1 - phaseIndex * 0.1) : 1;
-  const yesScale = shrinkPhase ? 1 + phaseIndex * 0.08 : 1;
+  const noScale = shrinkPhase ? Math.max(0.15, 1 - phaseIndex * 0.12) : 1;
+  const yesScale = shrinkPhase ? 1 + phaseIndex * 0.18 : 1;
   const noButtonText = shrinkPhase ? NO_BUTTON_TEXTS[phaseIndex] : "No, I won't 😢";
 
   useEffect(() => {
@@ -92,7 +92,7 @@ export default function ValentinesProposal() {
   }, [step]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-full">
+    <div className="relative flex flex-col items-center justify-center h-full">
       <AnimatePresence mode="wait">
         {/* Step 0: yay gif + Good Panda! + A+ */}
         {step === 0 && (
@@ -144,13 +144,38 @@ export default function ValentinesProposal() {
             >
               Will you be my Valentine?
             </h2>
-            <Image
-              src="/sad_hamster.png"
-              alt=""
-              width={200}
-              height={200}
-            />
-            <div className="flex items-center justify-center gap-6 mt-10 flex-wrap">
+            {noGone ? (
+              <>
+                <p className={`text-2xl md:text-3xl font-semibold text-white mb-4 text-center ${playfairDisplay.className}`}>
+                  Like I gave you an Option!
+                </p>
+                <Image
+                  src={getImageSrc("/game-photos/Badgirl.gif")}
+                  alt=""
+                  width={200}
+                  height={200}
+                  unoptimized
+                  className="mb-8"
+                />
+              </>
+            ) : moveCount < 10 ? (
+              <Image
+                src={getImageSrc("/game-photos/GoodGirl.gif")}
+                alt=""
+                width={200}
+                height={200}
+                unoptimized
+              />
+            ) : (
+              <Image
+                src={getImageSrc("/game-photos/please.gif")}
+                alt=""
+                width={200}
+                height={200}
+                unoptimized
+              />
+            )}
+            <div className="flex items-center justify-center gap-10 mt-10 flex-wrap min-w-0">
               <motion.button
                 className="px-6 py-2 text-lg font-semibold text-white bg-gradient-to-r from-pink-500 to-rose-500 rounded-xl hover:from-pink-600 hover:to-rose-600 transition-all duration-300 shadow-lg hover:shadow-xl shrink-0 origin-center"
                 style={{ transform: `scale(${yesScale})` }}
@@ -205,23 +230,33 @@ export default function ValentinesProposal() {
           </motion.div>
         )}
 
-        {/* Step 3: Thank you + fireworks */}
+        {/* Step 3: Arrow gif above + thank you, with fireworks behind */}
         {step === 3 && (
           <motion.div
             key="step-3"
-            className={`text-4xl font-semibold mb-4 flex flex-col justify-center items-center ${playfairDisplay.className}`}
+            className="relative z-10 flex flex-col justify-center items-center text-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Thank you for accepting, I love you! 💕
-            <p className="text-sm mt-4">For more information, write me!!! 💌</p>
+            <Image
+              src={getImageSrc("/game-photos/Arrow.gif")}
+              alt=""
+              width={320}
+              height={320}
+              unoptimized
+              className="object-contain max-w-[80vw] mb-6"
+            />
+            <p className={`text-4xl font-semibold mb-2 text-white ${playfairDisplay.className}`}>
+              Thank you for accepting, I love you! 💕
+            </p>
+            <p className="text-sm text-white/90 mb-4">For more information, write me!!! 💌</p>
             <Image
               src={getImageSrc("/game-photos/HereHere.gif")}
               alt=""
-              width={200}
-              height={200}
+              width={180}
+              height={180}
               unoptimized
             />
           </motion.div>
@@ -229,7 +264,7 @@ export default function ValentinesProposal() {
       </AnimatePresence>
 
       {showFireworks && (
-        <div className="absolute w-full h-full pointer-events-none">
+        <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
           <Fireworks
             options={{ autoresize: true }}
             style={{
