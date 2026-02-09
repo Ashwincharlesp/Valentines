@@ -251,7 +251,7 @@ export default function ValentinesProposal() {
         </div>
       )}
 
-      {/* Step 3: Arrow gif small, dead centre, on top of full-screen fireworks */}
+      {/* Step 3 final screen: only fireworks (full) + Arrow gif (centre), no text or other gifs */}
       {step === 3 && (
         <motion.div
           key="step-3-overlay"
