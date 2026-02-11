@@ -88,6 +88,7 @@ export default function ValentinesProposal() {
 
   useEffect(() => {
     if (step === 3) {
+      // Arrow gif display time (ms) — change 7000 to your desired duration
       const t = setTimeout(() => setStep(4), 7000);
       return () => clearTimeout(t);
     }
@@ -269,9 +270,9 @@ export default function ValentinesProposal() {
           <img
             src={getImageSrc("/game-photos/BTS.gif")}
             alt=""
-            width={480}
-            height={480}
-            className="absolute left-1/2 top-1/2 w-[min(85vw,480px)] h-[min(85vw,480px)] max-w-[480px] max-h-[80vh] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-2xl"
+            width={1200}
+            height={1200}
+            className="absolute left-1/2 top-1/2 w-[min(95vw,1200px)] h-[min(90vh,1200px)] max-w-[1200px] max-h-[1200px] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-2xl"
           />
         </motion.div>
       )}

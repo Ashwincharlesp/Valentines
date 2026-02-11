@@ -93,13 +93,13 @@ export default function PhotoPairGame({
 
   return (
     <div className="flex items-center justify-center gap-4 lg:gap-8 max-w-[95vw] mx-auto">
-      {/* Mirrored GIF left of the heart */}
-      <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 relative scale-x-[-1]">
+      {/* Mirrored HereHere GIF left of the heart — 2x size */}
+      <div className="flex-shrink-0 w-40 h-40 sm:w-48 sm:h-48 lg:w-64 lg:h-64 relative scale-x-[-1]">
         <Image
           src={getImageSrc("/game-photos/HereHere.gif")}
           alt=""
-          width={128}
-          height={128}
+          width={256}
+          height={256}
           unoptimized
           className="w-full h-full object-contain"
         />
@@ -181,13 +181,13 @@ export default function PhotoPairGame({
       )}
       </div>
 
-      {/* GIF right of the heart */}
-      <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 relative">
+      {/* HereHere GIF right of the heart — 2x size */}
+      <div className="flex-shrink-0 w-40 h-40 sm:w-48 sm:h-48 lg:w-64 lg:h-64 relative">
         <Image
           src={getImageSrc("/game-photos/HereHere.gif")}
           alt=""
-          width={128}
-          height={128}
+          width={256}
+          height={256}
           unoptimized
           className="w-full h-full object-contain"
         />
