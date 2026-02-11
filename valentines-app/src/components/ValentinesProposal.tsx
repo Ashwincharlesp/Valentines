@@ -89,7 +89,7 @@ export default function ValentinesProposal() {
   useEffect(() => {
     if (step === 3) {
       // Arrow gif display time (ms) — change 7000 to your desired duration
-      const t = setTimeout(() => setStep(4), 6000);
+      const t = setTimeout(() => setStep(4), 5000);
       return () => clearTimeout(t);
     }
   }, [step]);
@@ -256,29 +256,26 @@ export default function ValentinesProposal() {
         </motion.div>
       )}
 
-      {/* Step 4: BTS.gif — final screen, 2.5x scale */}
+      {/* Step 4: BTS.gif — final screen, fills most of viewport */}
       {step === 4 && (
         <motion.div
           key="step-4-final"
-          className="absolute inset-0 flex items-center justify-center bg-black overflow-hidden"
+          className="absolute inset-0 flex items-center justify-center bg-black"
           style={{ zIndex: 100 }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
         >
-          <div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 origin-center"
-            style={{ transform: "translate(-50%, -50%) scale(1)" }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={getImageSrc("/game-photos/BTS.gif")}
-              alt=""
-              width={480}
-              height={480}
-              className="w-[min(95vw,480px)] h-[min(90vh,480px)] max-w-[480px] max-h-[80vh] object-contain drop-shadow-2xl"
-            />
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={getImageSrc("/game-photos/BTS.gif")}
+            alt="BTS"
+            className="absolute left-1/2 top-1/2 max-w-[min(90vw,90vh)] max-h-[min(90vw,90vh)] w-auto h-auto object-contain -translate-x-1/2 -translate-y-1/2 drop-shadow-2xl"
+            style={{
+              width: "min(90vw, 90vh)",
+              height: "min(90vw, 90vh)",
+            }}
+          />
         </motion.div>
       )}
     </div>
