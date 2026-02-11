@@ -89,7 +89,7 @@ export default function ValentinesProposal() {
   useEffect(() => {
     if (step === 3) {
       // Arrow gif display time (ms) — change 7000 to your desired duration
-      const t = setTimeout(() => setStep(4), 7000);
+      const t = setTimeout(() => setStep(4), 5000);
       return () => clearTimeout(t);
     }
   }, [step]);
@@ -250,9 +250,8 @@ export default function ValentinesProposal() {
             key="arrow-step3"
             src={`${getImageSrc("/game-photos/Arrow.gif")}`}
             alt=""
-            width={480}
-            height={480}
-            className="absolute left-1/2 top-1/2 w-[min(85vw,480px)] h-[min(85vw,480px)] max-w-[480px] max-h-[80vh] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-2xl"
+            className="absolute left-1/2 top-1/2 max-h-[85vh] max-w-[92vw] w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-2xl"
+            style={{ width: "min(92vw, 85vh)", height: "min(92vw, 85vh)" }}
           />
         </motion.div>
       )}
@@ -267,7 +266,15 @@ export default function ValentinesProposal() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="absolute left-1/2 top-1/2 h-[min(90vw,90vh)] w-[min(90vw,90vh)] max-h-[90vh] max-w-[800px] -translate-x-1/2 -translate-y-1/2">
+          <div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            style={{
+              width: "min(95vw, 95vh)",
+              height: "min(95vw, 95vh)",
+              maxWidth: "95vw",
+              maxHeight: "95vh",
+            }}
+          >
             <div className="relative h-full w-full">
               <Image
                 key="bts-final"
@@ -276,6 +283,7 @@ export default function ValentinesProposal() {
                 fill
                 unoptimized
                 className="object-contain drop-shadow-2xl"
+                sizes="(max-width: 100vw) 95vw, 95vh"
               />
             </div>
           </div>
