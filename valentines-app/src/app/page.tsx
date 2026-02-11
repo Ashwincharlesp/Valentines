@@ -1,10 +1,15 @@
 "use client";
 
 // Run the app: https://pcharles.github.io/Valentines/
+// Add songs to public/ and list them here (e.g. Song3.mp3) to extend the playlist
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import PhotoPairGame from "../components/PhotoPairGame";
+
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const PLAYLIST = ["/game-photos/Song1.mp3", "/game-photos/Song2.mp3"];
+const getAudioSrc = (path: string) => `${BASE}${path}`;
 import ValentinesProposal from "@/components/ValentinesProposal";
 import TextFooter from "@/components/TextFooter";
 import OrientationGuard from "@/components/OrientationGuard";
@@ -16,6 +21,44 @@ export default function Home() {
   const [introStep, setIntroStep] = useState(0);
   const [showValentinesProposal, setShowValentinesProposal] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const musicStartedRef = useRef(false);
+  const trackIndexRef = useRef(0);
+
+  // When a track ends, play the next in the playlist (loop)
+  useEffect(() => {
+    const el = audioRef.current;
+    if (!el) return;
+    const onEnded = () => {
+      trackIndexRef.current = (trackIndexRef.current + 1) % PLAYLIST.length;
+      el.src = getAudioSrc(PLAYLIST[trackIndexRef.current]);
+      el.play().catch(() => {});
+    };
+    el.addEventListener("ended", onEnded);
+    return () => el.removeEventListener("ended", onEnded);
+  }, []);
+
+  // Start background music on first user interaction (required by browsers)
+  useEffect(() => {
+    const startMusic = () => {
+      if (musicStartedRef.current) return;
+      musicStartedRef.current = true;
+      const el = audioRef.current;
+      if (el) {
+        el.src = getAudioSrc(PLAYLIST[0]);
+        trackIndexRef.current = 0;
+        el.play().catch(() => {});
+      }
+      document.removeEventListener("click", startMusic);
+      document.removeEventListener("touchstart", startMusic);
+    };
+    document.addEventListener("click", startMusic, { once: true });
+    document.addEventListener("touchstart", startMusic, { once: true });
+    return () => {
+      document.removeEventListener("click", startMusic);
+      document.removeEventListener("touchstart", startMusic);
+    };
+  }, []);
 
   useEffect(() => {
     if (introStep < 2) {
@@ -33,6 +76,14 @@ export default function Home() {
 
   return (
     <OrientationGuard>
+      <audio
+        ref={audioRef}
+        src={getAudioSrc(PLAYLIST[0])}
+        preload="auto"
+        playsInline
+        className="hidden"
+        aria-hidden
+      />
       <main className="flex items-center justify-center min-h-screen bg-black overflow-hidden relative">
         {!showValentinesProposal ? (
           <>
