@@ -93,7 +93,7 @@ export default function ValentinesProposal() {
   useEffect(() => {
     if (step === 3) {
       // Arrow gif display time (ms) — change 7000 to your desired duration
-      const t = setTimeout(() => setStep(4), 4900);
+      const t = setTimeout(() => setStep(4), 4850);
       return () => clearTimeout(t);
     }
   }, [step]);
