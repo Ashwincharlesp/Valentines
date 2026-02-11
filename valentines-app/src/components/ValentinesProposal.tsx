@@ -86,6 +86,13 @@ export default function ValentinesProposal() {
     }
   }, [step]);
 
+  useEffect(() => {
+    if (step === 3) {
+      const t = setTimeout(() => setStep(4), 7000);
+      return () => clearTimeout(t);
+    }
+  }, [step]);
+
   return (
     <div className="relative flex flex-col items-center justify-center h-full">
       <AnimatePresence mode="wait">
@@ -227,7 +234,7 @@ export default function ValentinesProposal() {
 
       </AnimatePresence>
 
-      {/* Step 3 final screen: Arrow gif only, no fireworks */}
+      {/* Step 3: Arrow gif for 7 seconds */}
       {step === 3 && (
         <motion.div
           key="step-3-overlay"
@@ -240,6 +247,27 @@ export default function ValentinesProposal() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={getImageSrc("/game-photos/Arrow.gif")}
+            alt=""
+            width={480}
+            height={480}
+            className="absolute left-1/2 top-1/2 w-[min(85vw,480px)] h-[min(85vw,480px)] max-w-[480px] max-h-[80vh] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-2xl"
+          />
+        </motion.div>
+      )}
+
+      {/* Step 4: BTS.gif — final screen, leave it */}
+      {step === 4 && (
+        <motion.div
+          key="step-4-final"
+          className="absolute inset-0 flex items-center justify-center bg-black"
+          style={{ zIndex: 100 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={getImageSrc("/game-photos/BTS.gif")}
             alt=""
             width={480}
             height={480}
