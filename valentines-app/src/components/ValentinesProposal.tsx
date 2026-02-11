@@ -89,7 +89,7 @@ export default function ValentinesProposal() {
   useEffect(() => {
     if (step === 3) {
       // Arrow gif display time (ms) — change 7000 to your desired duration
-      const t = setTimeout(() => setStep(4), 5000);
+      const t = setTimeout(() => setStep(4), 7000);
       return () => clearTimeout(t);
     }
   }, [step]);
@@ -235,11 +235,11 @@ export default function ValentinesProposal() {
 
       </AnimatePresence>
 
-      {/* Step 3: Arrow gif for 7 seconds */}
+      {/* Step 3: Arrow gif — key forces reload/replay when step 3 is shown; timer moves to step 4 after 7s */}
       {step === 3 && (
         <motion.div
           key="step-3-overlay"
-          className="absolute inset-0 pointer-events-none flex items-center justify-center bg-black"
+          className="fixed inset-0 pointer-events-none flex items-center justify-center bg-black"
           style={{ zIndex: 100 }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -247,7 +247,8 @@ export default function ValentinesProposal() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={getImageSrc("/game-photos/Arrow.gif")}
+            key="arrow-step3"
+            src={`${getImageSrc("/game-photos/Arrow.gif")}`}
             alt=""
             width={480}
             height={480}
@@ -256,26 +257,28 @@ export default function ValentinesProposal() {
         </motion.div>
       )}
 
-      {/* Step 4: BTS.gif — final screen, fills most of viewport */}
+      {/* Step 4: BTS.gif — fixed to viewport so it always shows */}
       {step === 4 && (
         <motion.div
           key="step-4-final"
-          className="absolute inset-0 flex items-center justify-center bg-black"
-          style={{ zIndex: 100 }}
+          className="fixed inset-0 flex items-center justify-center bg-black"
+          style={{ zIndex: 101 }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={getImageSrc("/game-photos/BTS.gif")}
-            alt="BTS"
-            className="absolute left-1/2 top-1/2 max-w-[min(90vw,90vh)] max-h-[min(90vw,90vh)] w-auto h-auto object-contain -translate-x-1/2 -translate-y-1/2 drop-shadow-2xl"
-            style={{
-              width: "min(90vw, 90vh)",
-              height: "min(90vw, 90vh)",
-            }}
-          />
+          <div className="absolute left-1/2 top-1/2 h-[min(90vw,90vh)] w-[min(90vw,90vh)] max-h-[90vh] max-w-[800px] -translate-x-1/2 -translate-y-1/2">
+            <div className="relative h-full w-full">
+              <Image
+                key="bts-final"
+                src={getImageSrc("/game-photos/BTS.gif")}
+                alt="BTS"
+                fill
+                unoptimized
+                className="object-contain drop-shadow-2xl"
+              />
+            </div>
+          </div>
         </motion.div>
       )}
     </div>
