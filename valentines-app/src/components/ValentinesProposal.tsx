@@ -268,7 +268,7 @@ export default function ValentinesProposal() {
         >
           <div
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 origin-center"
-            style={{ transform: "translate(-50%, -50%) scale(2.5)" }}
+            style={{ transform: "translate(-50%, -50%) scale(1)" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
