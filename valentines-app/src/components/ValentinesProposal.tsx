@@ -171,7 +171,7 @@ export default function ValentinesProposal() {
               />
             ) : (
               <Image
-                src={getImageSrc("/game-photos/please.gif")}
+                src={getImageSrc(`/game-photos/please${Math.min(phaseIndex + 1, 9)}.gif`)}
                 alt=""
                 width={200}
                 height={200}
