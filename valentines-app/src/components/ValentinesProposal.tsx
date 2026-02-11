@@ -34,8 +34,8 @@ export default function ValentinesProposal() {
   const [shrinkClickCount, setShrinkClickCount] = useState(0);
 
   const getRandomPosition = () => {
-    const randomTop = Math.random() * 80;
-    const randomLeft = Math.random() * 80;
+    const randomTop = Math.random() * 160;
+    const randomLeft = Math.random() * 160;
     return { top: `${randomTop}%`, left: `${randomLeft}%` };
   };
 
@@ -89,7 +89,7 @@ export default function ValentinesProposal() {
   useEffect(() => {
     if (step === 3) {
       // Arrow gif display time (ms) — change 7000 to your desired duration
-      const t = setTimeout(() => setStep(4), 5000);
+      const t = setTimeout(() => setStep(4), 4700);
       return () => clearTimeout(t);
     }
   }, [step]);
