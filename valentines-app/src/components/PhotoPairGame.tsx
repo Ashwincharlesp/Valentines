@@ -61,6 +61,12 @@ export default function PhotoPairGame({
   const [matched, setMatched] = useState<number[]>([]);
   const [incorrect, setIncorrect] = useState<number[]>([]);
   const [shuffledImages] = useState(() => shuffleArray([...imagePairs]));
+  const [hereHereKey, setHereHereKey] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setHereHereKey((k) => k + 1), 5000);
+    return () => clearInterval(id);
+  }, []);
 
   const handleClick = async (index: number) => {
     if (selected.length === 2 || matched.includes(index) || selected.includes(index)) return;
@@ -93,9 +99,10 @@ export default function PhotoPairGame({
 
   return (
     <div className="flex items-center justify-center gap-4 lg:gap-8 max-w-[95vw] mx-auto">
-      {/* Mirrored HereHere GIF left of the heart — 2x size */}
+      {/* Mirrored HereHere GIF left — refreshes every 5s so it replays */}
       <div className="flex-shrink-0 w-40 h-40 sm:w-48 sm:h-48 lg:w-64 lg:h-64 relative scale-x-[-1]">
         <Image
+          key={hereHereKey}
           src={getImageSrc("/game-photos/HereHere.gif")}
           alt=""
           width={256}
@@ -181,9 +188,10 @@ export default function PhotoPairGame({
       )}
       </div>
 
-      {/* HereHere GIF right of the heart — 2x size */}
+      {/* HereHere GIF right — refreshes every 5s so it replays */}
       <div className="flex-shrink-0 w-40 h-40 sm:w-48 sm:h-48 lg:w-64 lg:h-64 relative">
         <Image
+          key={hereHereKey}
           src={getImageSrc("/game-photos/HereHere.gif")}
           alt=""
           width={256}
