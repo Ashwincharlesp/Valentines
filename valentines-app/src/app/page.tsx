@@ -48,7 +48,7 @@ export default function Home() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.8 }}
                   >
-                    Little foreplay first
+                    One little game first.
                   </motion.p>
                 )}
                 {introStep === 1 && (
@@ -60,7 +60,7 @@ export default function Home() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.8 }}
                   >
-                    Pair the photos
+                    Match the pairs.
                   </motion.p>
                 )}
               </AnimatePresence>
