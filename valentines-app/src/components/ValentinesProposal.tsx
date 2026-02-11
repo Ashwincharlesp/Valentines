@@ -25,7 +25,7 @@ const getImageSrc = (path: string) =>
   `${process.env.NEXT_PUBLIC_BASE_PATH || ""}${path}`;
 
 // Keep No button within viewport: buffer (in %) from each edge
-const NO_BUTTON_BUFFER_PCT = 12;
+const NO_BUTTON_BUFFER_PCT = 25;
 
 export default function ValentinesProposal() {
   const [step, setStep] = useState(0);
