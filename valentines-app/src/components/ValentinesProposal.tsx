@@ -24,6 +24,9 @@ const NO_BUTTON_TEXTS = [
 const getImageSrc = (path: string) =>
   `${process.env.NEXT_PUBLIC_BASE_PATH || ""}${path}`;
 
+// Keep No button within viewport: buffer (in %) from each edge
+const NO_BUTTON_BUFFER_PCT = 12;
+
 export default function ValentinesProposal() {
   const [step, setStep] = useState(0);
   const [position, setPosition] = useState<{
@@ -34,8 +37,9 @@ export default function ValentinesProposal() {
   const [shrinkClickCount, setShrinkClickCount] = useState(0);
 
   const getRandomPosition = () => {
-    const randomTop = Math.random() * 160;
-    const randomLeft = Math.random() * 160;
+    const range = 100 - 2 * NO_BUTTON_BUFFER_PCT; // e.g. 76 for 12% buffer
+    const randomTop = NO_BUTTON_BUFFER_PCT + Math.random() * range;
+    const randomLeft = NO_BUTTON_BUFFER_PCT + Math.random() * range;
     return { top: `${randomTop}%`, left: `${randomLeft}%` };
   };
 
